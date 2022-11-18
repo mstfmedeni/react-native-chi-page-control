@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Animated, Platform, ViewPropTypes } from "react-native";
+import { View, Animated, Platform } from "react-native";
+import { ViewPropTypes } from "deprecated-react-native-prop-types";
 
 const ELEMENT_WIDTH = 15;
 const ELEMENT_HEIGHT = 6;
@@ -31,7 +32,7 @@ class PageControlJaloro extends Component {
       inactiveTransparency,
       activeTintColor,
       inactiveTintColor,
-      hidesForSinglePage
+      hidesForSinglePage,
     } = this.props;
 
     const pages = Array.from(Array(numberOfPages).keys());
@@ -40,7 +41,7 @@ class PageControlJaloro extends Component {
       <View style={style}>
         {(numberOfPages > 1 || !hidesForSinglePage) && (
           <View style={{ flexDirection: "row" }}>
-            {pages.map(index => (
+            {pages.map((index) => (
               <View
                 key={index}
                 style={{
@@ -49,7 +50,7 @@ class PageControlJaloro extends Component {
                   marginEnd: index === pages.length - 1 ? 0 : margin,
                   opacity: inactiveTransparency,
                   backgroundColor: inactiveTintColor,
-                  borderRadius
+                  borderRadius,
                 }}
               />
             ))}
@@ -62,7 +63,7 @@ class PageControlJaloro extends Component {
                 opacity: 1,
                 backgroundColor: activeTintColor,
                 borderRadius,
-                transform: [{ translateX: this.translateX }]
+                transform: [{ translateX: this.translateX }],
               }}
             />
           </View>
@@ -78,7 +79,8 @@ class PageControlJaloro extends Component {
 
   getActiveDotTranslateX() {
     const { progress, numberOfPages, width, margin } = this.props;
-    const fullWidth = (numberOfPages - 1) * width + (numberOfPages - 1) * margin;
+    const fullWidth =
+      (numberOfPages - 1) * width + (numberOfPages - 1) * margin;
 
     if (progress <= 0) {
       return 0;
@@ -95,7 +97,7 @@ class PageControlJaloro extends Component {
     Animated.timing(this.translateX, {
       toValue: value,
       duration: duration,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start();
   }
 }
@@ -112,7 +114,7 @@ PageControlJaloro.propTypes = {
   inactiveTransparency: PropTypes.number,
   inactiveTintColor: PropTypes.string,
   activeTintColor: PropTypes.string,
-  hidesForSinglePage: PropTypes.bool
+  hidesForSinglePage: PropTypes.bool,
 };
 
 PageControlJaloro.defaultProps = {
@@ -126,7 +128,7 @@ PageControlJaloro.defaultProps = {
   inactiveTransparency: 0.4,
   inactiveTintColor: "black",
   activeTintColor: "black",
-  hidesForSinglePage: true
+  hidesForSinglePage: true,
 };
 
 export default PageControlJaloro;

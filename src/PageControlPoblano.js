@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Animated, Platform, ViewPropTypes } from "react-native";
+import { View, Animated, Platform } from "react-native";
+import { ViewPropTypes } from "deprecated-react-native-prop-types";
 
 const DOT_RADIUS = 6;
 const DOT_MARGINE = 6;
@@ -29,18 +30,26 @@ class PageControlPoblano extends Component {
       activeTransparency,
       activeTintColor,
       inactiveBorderColor,
-      hidesForSinglePage
+      hidesForSinglePage,
     } = this.props;
 
     const pages = Array.from(Array(numberOfPages).keys());
-    const halfPageControlWidth = ((numberOfPages - 1) * (radius * 2) + (numberOfPages - 1) * margin) / 2;
+    const halfPageControlWidth =
+      ((numberOfPages - 1) * (radius * 2) + (numberOfPages - 1) * margin) / 2;
 
     return (
       <View style={[style, { left: halfPageControlWidth }]}>
         {(numberOfPages > 1 || !hidesForSinglePage) && (
           <View>
-            <Animated.View style={[{ flexDirection: "row", transform: [{ translateX: this.translateX }] }]}>
-              {pages.map(index => (
+            <Animated.View
+              style={[
+                {
+                  flexDirection: "row",
+                  transform: [{ translateX: this.translateX }],
+                },
+              ]}
+            >
+              {pages.map((index) => (
                 <View
                   key={index}
                   style={{
@@ -49,7 +58,7 @@ class PageControlPoblano extends Component {
                     marginEnd: index === pages.length - 1 ? 0 : margin,
                     borderRadius: radius,
                     opacity: activeTransparency,
-                    backgroundColor: activeTintColor
+                    backgroundColor: activeTintColor,
                   }}
                 />
               ))}
@@ -65,7 +74,7 @@ class PageControlPoblano extends Component {
                 borderWidth: 2,
                 borderColor: inactiveBorderColor,
                 position: "absolute",
-                opacity: 1
+                opacity: 1,
               }}
             />
           </View>
@@ -81,7 +90,8 @@ class PageControlPoblano extends Component {
 
   getDotViewTranslateX() {
     const { progress, numberOfPages, radius, margin } = this.props;
-    const width = (numberOfPages - 1) * (radius * 2) + (numberOfPages - 1) * margin;
+    const width =
+      (numberOfPages - 1) * (radius * 2) + (numberOfPages - 1) * margin;
 
     if (progress <= 0) {
       return 0;
@@ -98,7 +108,7 @@ class PageControlPoblano extends Component {
     Animated.timing(this.translateX, {
       toValue: value,
       duration: duration,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start();
   }
 }
@@ -113,7 +123,7 @@ PageControlPoblano.propTypes = {
   activeTransparency: PropTypes.number,
   activeTintColor: PropTypes.string,
   inactiveBorderColor: PropTypes.string,
-  hidesForSinglePage: PropTypes.bool
+  hidesForSinglePage: PropTypes.bool,
 };
 
 PageControlPoblano.defaultProps = {
@@ -125,7 +135,7 @@ PageControlPoblano.defaultProps = {
   activeTransparency: 1,
   activeTintColor: "black",
   inactiveBorderColor: "black",
-  hidesForSinglePage: true
+  hidesForSinglePage: true,
 };
 
 export default PageControlPoblano;
