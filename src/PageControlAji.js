@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { View, Animated, Platform, ViewPropTypes } from "react-native";
+import { View, Animated, Platform } from "react-native";
 import PropTypes from "prop-types";
+import { ViewPropTypes } from "deprecated-react-native-prop-types";
 
 const DOT_RADIUS = 6;
 const DOT_MARGINE = 6;
@@ -29,7 +30,7 @@ class PageControlAji extends Component {
       inactiveBorderColor,
       inactiveTintColor,
       activeTintColor,
-      hidesForSinglePage
+      hidesForSinglePage,
     } = this.props;
 
     const pages = Array.from(Array(numberOfPages).keys());
@@ -38,7 +39,7 @@ class PageControlAji extends Component {
       <View style={style}>
         {(numberOfPages > 1 || !hidesForSinglePage) && (
           <View style={{ flexDirection: "row" }}>
-            {pages.map(index => (
+            {pages.map((index) => (
               <View
                 key={index}
                 style={{
@@ -49,7 +50,7 @@ class PageControlAji extends Component {
                   opacity: inactiveTransparency,
                   backgroundColor: inactiveTintColor,
                   borderColor: inactiveBorderColor || inactiveTintColor,
-                  borderWidth: 1
+                  borderWidth: 1,
                 }}
               />
             ))}
@@ -62,7 +63,7 @@ class PageControlAji extends Component {
                 position: "absolute",
                 opacity: 1,
                 backgroundColor: activeTintColor,
-                transform: [{ translateX: this.translateX }]
+                transform: [{ translateX: this.translateX }],
               }}
             />
           </View>
@@ -78,7 +79,8 @@ class PageControlAji extends Component {
 
   getActiveDotTranslateX() {
     const { progress, numberOfPages, radius, margin } = this.props;
-    const width = (numberOfPages - 1) * (radius * 2) + (numberOfPages - 1) * margin;
+    const width =
+      (numberOfPages - 1) * (radius * 2) + (numberOfPages - 1) * margin;
 
     if (progress <= 0) {
       return 0;
@@ -95,7 +97,7 @@ class PageControlAji extends Component {
     Animated.timing(this.translateX, {
       toValue: value,
       duration: duration,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start();
   }
 }
@@ -111,7 +113,7 @@ PageControlAji.propTypes = {
   inactiveBorderColor: PropTypes.string,
   inactiveTintColor: PropTypes.string,
   activeTintColor: PropTypes.string,
-  hidesForSinglePage: PropTypes.bool
+  hidesForSinglePage: PropTypes.bool,
 };
 
 PageControlAji.defaultProps = {
@@ -123,7 +125,7 @@ PageControlAji.defaultProps = {
   inactiveTransparency: 0.4,
   inactiveTintColor: "black",
   activeTintColor: "black",
-  hidesForSinglePage: true
+  hidesForSinglePage: true,
 };
 
 export default PageControlAji;

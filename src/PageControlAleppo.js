@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Animated, Platform, ViewPropTypes } from "react-native";
+import { View, Animated, Platform } from "react-native";
+import { ViewPropTypes } from "deprecated-react-native-prop-types";
 
 const DOT_RADIUS = 6;
 const DOT_MARGINE = 6;
@@ -30,7 +31,7 @@ class PageControlAleppo extends Component {
       inactiveBorderColor,
       activeTintColor,
       inactiveTintColor,
-      hidesForSinglePage
+      hidesForSinglePage,
     } = this.props;
 
     const pages = Array.from(Array(numberOfPages).keys());
@@ -39,7 +40,7 @@ class PageControlAleppo extends Component {
       <View style={style}>
         {(numberOfPages > 1 || !hidesForSinglePage) && (
           <View style={{ flexDirection: "row" }}>
-            {pages.map(index => (
+            {pages.map((index) => (
               <View
                 key={index}
                 style={{
@@ -50,7 +51,7 @@ class PageControlAleppo extends Component {
                   opacity: inactiveTransparency,
                   backgroundColor: inactiveTintColor,
                   borderColor: inactiveBorderColor || inactiveTintColor,
-                  borderWidth: 1
+                  borderWidth: 1,
                 }}
               />
             ))}
@@ -63,7 +64,7 @@ class PageControlAleppo extends Component {
                 position: "absolute",
                 opacity: 1,
                 backgroundColor: activeTintColor,
-                transform: [{ translateX: this.translateX }]
+                transform: [{ translateX: this.translateX }],
               }}
             />
           </View>
@@ -74,7 +75,8 @@ class PageControlAleppo extends Component {
 
   updateActiveDotTranslateX(duration = this.animationDuration) {
     const { progress, numberOfPages, radius, margin } = this.props;
-    const width = (numberOfPages - 1) * (radius * 2) + (numberOfPages - 1) * margin;
+    const width =
+      (numberOfPages - 1) * (radius * 2) + (numberOfPages - 1) * margin;
     const step = 1 / (numberOfPages - 1);
     const halfStep = step / 2;
     let translateX = 0;
@@ -84,7 +86,8 @@ class PageControlAleppo extends Component {
     if (progress < 0 || progress > 1) {
       extraWidthConst = 0;
     } else if (progress % step > halfStep) {
-      extraWidthConst = (halfStep - ((progress % step) - halfStep)) * (numberOfPages + 1);
+      extraWidthConst =
+        (halfStep - ((progress % step) - halfStep)) * (numberOfPages + 1);
     } else {
       extraWidthConst = (progress % halfStep) * (numberOfPages + 1);
     }
@@ -105,13 +108,13 @@ class PageControlAleppo extends Component {
       Animated.timing(this.translateX, {
         toValue: translateX,
         duration,
-        useNativeDriver: false
+        useNativeDriver: false,
       }),
       Animated.timing(this.width, {
         toValue: newWidth,
         duration,
-        useNativeDriver: false
-      })
+        useNativeDriver: false,
+      }),
     ]).start();
   }
 }
@@ -127,7 +130,7 @@ PageControlAleppo.propTypes = {
   inactiveBorderColor: PropTypes.string,
   inactiveTintColor: PropTypes.string,
   tintColor: PropTypes.string,
-  hidesForSinglePage: PropTypes.bool
+  hidesForSinglePage: PropTypes.bool,
 };
 
 PageControlAleppo.defaultProps = {
@@ -139,7 +142,7 @@ PageControlAleppo.defaultProps = {
   inactiveTransparency: 0.4,
   inactiveTintColor: "black",
   activeTintColor: "black",
-  hidesForSinglePage: true
+  hidesForSinglePage: true,
 };
 
 export default PageControlAleppo;
