@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/mstfmedeni/react-native-chi-page-control#readme",
   "dependencies": {
+    "deprecated-react-native-prop-types": "^2.3.0",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
